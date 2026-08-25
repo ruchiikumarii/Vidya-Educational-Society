@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: "Poppins", sans-serif;
+  --font-body: "Open Sans", sans-serif;
+  --font-numbers: "Poppins", sans-serif;
+
+  --color-primary: #0d3b7a;
+  --color-primary-dark: #082a58;
+  --color-primary-light: #1657ad;
+  --color-accent: #f57c00;
+  --color-accent-dark: #d96a00;
+  --color-bg-light: #ffffff;
+  --color-bg-alt: #f2f6fb;
+  --color-dark: #06203f;
+}
+
+@layer base {
+  :root {
+    --background: var(--color-bg-light);
+    --foreground: #263238;
+  }
+
+  body {
+    @apply bg-[var(--background)] text-[var(--foreground)] font-body antialiased;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
+}
+
+@layer utilities {
+  /* Blue banded heading used above every major section */
+  .section-title {
+    @apply font-heading font-bold text-2xl sm:text-3xl text-primary uppercase tracking-wide;
+  }
+
+  .section-rule {
+    @apply mx-auto mt-3 h-1 w-24 bg-accent;
+  }
+
+  .card-institutional {
+    @apply bg-white border border-slate-200 shadow-sm transition-shadow duration-300 hover:shadow-lg;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-primary-dark;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 bg-accent px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-accent-dark;
+  }
+
+  .number-font {
+    @apply font-numbers;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Blinking "new" marker used by the News & Events ticker */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+.blink {
+  animation: blink 1s steps(1, end) infinite;
+}
+
+/* Continuous marquee for the partner logo strip */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-alt);
+}
+::-webkit-scrollbar-thumb {
+  background: #b0bec5;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
