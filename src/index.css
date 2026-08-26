@@ -30,6 +30,12 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading tracking-tight;
   }
+
+  /* Justify body paragraphs across the site (utilities like text-center still win). */
+  p {
+    text-align: justify;
+    text-justify: inter-word;
+  }
 }
 
 @layer utilities {
