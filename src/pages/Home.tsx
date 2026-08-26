@@ -5,6 +5,7 @@ import { DirectorMessage } from '../components/DirectorMessage';
 import { Courses } from '../components/Courses';
 import { WhyChooseUs } from '../components/WhyChooseUs';
 import { Faculty } from '../components/Faculty';
+import { SuccessStories } from '../components/SuccessStories';
 import { CtaStrip } from '../components/CtaStrip';
 
 export function Home() {
@@ -17,6 +18,7 @@ export function Home() {
       <Courses />
       <WhyChooseUs />
       <Faculty />
+      <SuccessStories />
       <CtaStrip />
     </>
   );

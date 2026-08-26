@@ -8,6 +8,8 @@ import { Assignments } from './features/Assignments';
 import { Announcements } from './features/Announcements';
 import { Timetable } from './features/Timetable';
 import { GalleryManager } from './features/GalleryManager';
+import { FeesManager } from './features/FeesManager';
+import { SuccessStoriesManager } from './features/SuccessStoriesManager';
 
 function UsersManager() {
   const { profile: me } = useAuth();
@@ -297,17 +299,19 @@ export function AdminDashboard() {
   return (
     <div>
       <PortalTabs
-        tabs={['Users', 'Notes', 'Assignments', 'Announcements', 'Timetable', 'Gallery']}
+        tabs={['Users', 'Fees', 'Notes', 'Assignments', 'Announcements', 'Timetable', 'Gallery', 'Success Stories']}
         active={tab}
         onChange={setTab}
       />
 
       {tab === 'Users' && <UsersManager />}
+      {tab === 'Fees' && <FeesManager />}
       {tab === 'Notes' && <NotesManager />}
       {tab === 'Assignments' && <Assignments role="admin" />}
       {tab === 'Announcements' && <Announcements role="admin" />}
       {tab === 'Timetable' && <Timetable role="admin" />}
       {tab === 'Gallery' && <GalleryManager />}
+      {tab === 'Success Stories' && <SuccessStoriesManager />}
     </div>
   );
 }

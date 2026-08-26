@@ -81,3 +81,21 @@ export interface GalleryItem {
   caption: string | null;
   created_at: string;
 }
+
+export interface Fees {
+  student_id: string;
+  total_amount: number;
+  paid_amount: number;
+  next_due_date: string | null;
+  note: string | null;
+  updated_at: string;
+}
+
+export interface SuccessStory {
+  id: string;
+  name: string;
+  course: string | null;
+  story: string;
+  image_url: string | null;
+  created_at: string;
+}

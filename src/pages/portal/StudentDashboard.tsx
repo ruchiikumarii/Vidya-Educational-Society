@@ -6,6 +6,7 @@ import { PortalTabs } from './features/PortalTabs';
 import { Assignments } from './features/Assignments';
 import { Announcements } from './features/Announcements';
 import { Timetable } from './features/Timetable';
+import { StudentFees } from './features/StudentFees';
 
 function NotesView() {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -75,12 +76,13 @@ export function StudentDashboard() {
 
   return (
     <div>
-      <PortalTabs tabs={['Notes', 'Assignments', 'Announcements', 'Timetable']} active={tab} onChange={setTab} />
+      <PortalTabs tabs={['Notes', 'Assignments', 'Announcements', 'Timetable', 'Fees']} active={tab} onChange={setTab} />
 
       {tab === 'Notes' && <NotesView />}
       {tab === 'Assignments' && <Assignments role="student" />}
       {tab === 'Announcements' && <Announcements role="student" />}
       {tab === 'Timetable' && <Timetable role="student" />}
+      {tab === 'Fees' && <StudentFees />}
 
       <div className="mt-10 max-w-2xl">
         <ChangePassword />
