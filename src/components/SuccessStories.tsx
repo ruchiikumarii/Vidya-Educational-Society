@@ -32,24 +32,34 @@ export function SuccessStories() {
           subtitle="Our students, their journey and achievements at Vidya Educational Society (NEURON)."
         />
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid justify-items-center gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((s) => (
-            <article key={s.id} className="card-institutional flex flex-col p-6">
-              <Quote size={28} className="text-accent/25" />
-              <p className="mt-2 flex-1 text-justify text-sm leading-relaxed text-slate-600">{s.story}</p>
-              <div className="mt-4 flex items-center gap-3 border-t border-slate-100 pt-4">
+            <article
+              key={s.id}
+              className="card-institutional relative flex w-full max-w-sm flex-col items-center px-6 pb-7 pt-14 text-center"
+            >
+              {/* Photo overlapping the top of the card */}
+              <div className="absolute -top-11 left-1/2 -translate-x-1/2">
                 {s.image_url ? (
-                  <img src={s.image_url} alt={s.name} className="h-12 w-12 shrink-0 rounded-full object-cover" />
+                  <img
+                    src={s.image_url}
+                    alt={s.name}
+                    className="h-24 w-24 rounded-full border-4 border-white object-cover object-top shadow-lg"
+                  />
                 ) : (
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary font-heading text-sm font-bold text-white">
+                  <span className="flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-primary font-heading text-2xl font-bold text-white shadow-lg">
                     {initials(s.name)}
                   </span>
                 )}
-                <div>
-                  <p className="font-heading text-sm font-bold text-primary">{s.name}</p>
-                  {s.course && <p className="text-xs text-accent">{s.course}</p>}
-                </div>
               </div>
+
+              <h3 className="font-heading text-lg font-bold text-primary">{s.name}</h3>
+              {s.course && (
+                <p className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-accent">{s.course}</p>
+              )}
+
+              <Quote size={26} className="mt-4 text-accent/25" />
+              <p className="mt-2 line-clamp-6 text-justify text-sm leading-relaxed text-slate-600">{s.story}</p>
             </article>
           ))}
         </div>
