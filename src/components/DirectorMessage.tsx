@@ -32,13 +32,17 @@ export function DirectorMessage() {
           {/* Message */}
           <div className="relative flex flex-col justify-center p-6 sm:p-9">
             <Quote size={40} className="text-accent/25" />
+            <p className="mt-2 text-sm font-semibold text-primary sm:text-[15px]">{directorMessage.greeting}</p>
             {directorMessage.paragraphs.map((paragraph, i) => (
-              <p key={i} className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-[15px]">
+              <p key={i} className="mt-3 text-justify text-sm leading-relaxed text-slate-600 sm:text-[15px]">
                 {paragraph}
               </p>
             ))}
-            <p className="mt-5 font-heading text-sm font-bold text-primary">
-              - {directorMessage.name}
+            <p className="mt-5 text-sm text-slate-600 sm:text-[15px]">{directorMessage.closing}</p>
+            <p className="mt-1 font-heading text-sm font-bold text-primary">{directorMessage.name}</p>
+            <p className="text-xs text-slate-500">{directorMessage.designation}</p>
+            <p className="mt-4 border-t border-slate-100 pt-4 text-center font-heading text-sm font-bold italic text-accent">
+              “{directorMessage.tagline}”
             </p>
           </div>
         </div>

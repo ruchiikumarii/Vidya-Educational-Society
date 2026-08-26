@@ -99,12 +99,18 @@ export const directorMessage = {
   name: "Bidhyadhar Chaudhury",
   designation: "Director & Sr. Faculty, Vidya Educational Society (NEURON)",
   image: "/images/director.jpg",
+  greeting: "Dear Students, Parents, and Well-Wishers,",
   paragraphs: [
-    "Vidya Educational Society (NEURON) was founded in 1997 with one clear aim - to bring quality, affordable and recognised computer education to the students of Keonjhar, so that no one here is left behind in a fast-changing digital world.",
-    "Over the years, we have grown into an authorized study centre of NIOS, an authorized learning centre of OKCL under the Government of Odisha, and an approved centre of ITCT. This means every certificate our students earn carries genuine value for further studies and employment.",
-    "Whether you are a student after your 10th, a graduate looking for a PGDCA, or a working person who wants a short skill course, our doors are open every day. With experienced faculty, practical training and flexible batches, we are committed to turning your effort into real opportunity.",
-    "I warmly invite you to visit our centre and become a part of the Vidya (NEURON) family."
-  ]
+    "It gives me immense pleasure to welcome you to Vidya Educational Society (NEURON) - an institution built on a strong vision to empower young minds through quality education, practical skills, and meaningful career opportunities.",
+    "Since our establishment in 1997, our mission has remained clear: to ensure that the students of Keonjhar and surrounding areas are never left behind in an increasingly digital and competitive world. What began as a vision has grown into a trusted centre of learning, helping students build knowledge, confidence, skills, and a brighter future.",
+    "At our institute, we believe that education is not merely about earning a certificate - it is about gaining the knowledge, confidence, and skills needed to create opportunities and achieve success. Our focus is therefore on combining recognised education with practical, career-oriented learning.",
+    "Whether you are taking your first step after the 10th standard, pursuing higher qualifications such as PGDCA, or looking to upgrade your professional skills through short-term courses, we are committed to supporting you at every stage of your learning journey.",
+    "Our success is measured not only by the growth of our institution but also by the achievements of every student who walks through our doors with a dream and leaves with greater knowledge, confidence, and purpose.",
+    "I warmly invite you to become a part of our family. Together, let us learn, grow, innovate, and build a brighter future.",
+    "Your journey towards success can begin here."
+  ],
+  closing: "With warm wishes,",
+  tagline: "Empowering Minds. Enhancing Skills. Shaping Futures."
 };
 
 export interface GalleryImage {
