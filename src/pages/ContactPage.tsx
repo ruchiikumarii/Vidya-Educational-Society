@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { MapPin, Phone, Clock, MessageCircle, ChevronDown, CheckCircle2, Send } from 'lucide-react';
+import { MapPin, Phone, Clock, MessageCircle, ChevronDown, CheckCircle2, Send, Loader2 } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { SectionHeading } from '../components/SectionHeading';
-import { cn } from '../lib/utils';
+import { cn, sendEnquiry } from '../lib/utils';
 import { siteInfo, faqs, courses } from '../data';
 
 export function ContactPage() {
   const [openFaq, setOpenFaq] = useState<string | null>(faqs[0]?.id ?? null);
   const [submitted, setSubmitted] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
 
   const contactDetails = [
     { Icon: MapPin, label: 'Address', value: siteInfo.contact.address },
@@ -38,7 +40,7 @@ export function ContactPage() {
                   <Icon size={22} />
                 </span>
                 <h3 className="mt-4 font-heading text-sm font-bold uppercase tracking-wide text-primary">{label}</h3>
-                <p className="mt-2 text-sm leading-relaxed break-words text-slate-600">{value}</p>
+                <p className="mt-2 text-center text-sm leading-relaxed break-words text-slate-600">{value}</p>
               </div>
             ))}
           </div>
@@ -63,9 +65,21 @@ export function ContactPage() {
             ) : (
               <form
                 className="mt-6 grid gap-5 bg-white p-6 shadow-sm sm:grid-cols-2 sm:p-8"
-                onSubmit={(event) => {
+                onSubmit={async (event) => {
                   event.preventDefault();
-                  setSubmitted(true);
+                  const data = new FormData(event.currentTarget);
+                  setError('');
+                  setBusy(true);
+                  const ok = await sendEnquiry('Admission Enquiry - Website', {
+                    Name: String(data.get('name') || ''),
+                    Mobile: String(data.get('mobile') || ''),
+                    Email: String(data.get('email') || ''),
+                    Course: String(data.get('course') || 'Not specified'),
+                    Message: String(data.get('message') || '')
+                  });
+                  setBusy(false);
+                  if (ok) setSubmitted(true);
+                  else setError('Could not send right now. Please call or WhatsApp us instead.');
                 }}
               >
                 <label className="block">
@@ -74,6 +88,7 @@ export function ContactPage() {
                   </span>
                   <input
                     type="text"
+                    name="name"
                     required
                     placeholder="Your name"
                     className="mt-1.5 w-full border border-slate-300 px-4 py-2.5 text-sm focus:border-primary focus:outline-none"
@@ -86,6 +101,7 @@ export function ContactPage() {
                   </span>
                   <input
                     type="tel"
+                    name="mobile"
                     required
                     placeholder="+91 00000 00000"
                     className="mt-1.5 w-full border border-slate-300 px-4 py-2.5 text-sm focus:border-primary focus:outline-none"
@@ -96,6 +112,7 @@ export function ContactPage() {
                   <span className="text-xs font-semibold uppercase tracking-wide text-slate-600">Email Address</span>
                   <input
                     type="email"
+                    name="email"
                     placeholder="you@example.com"
                     className="mt-1.5 w-full border border-slate-300 px-4 py-2.5 text-sm focus:border-primary focus:outline-none"
                   />
@@ -106,12 +123,13 @@ export function ContactPage() {
                     Course of Interest
                   </span>
                   <select
+                    name="course"
                     defaultValue=""
                     className="mt-1.5 w-full border border-slate-300 bg-white px-4 py-2.5 text-sm focus:border-primary focus:outline-none"
                   >
                     <option value="">Select a course</option>
                     {courses.map((course) => (
-                      <option key={course.id} value={course.slug}>
+                      <option key={course.id} value={course.shortTitle}>
                         {course.shortTitle}
                       </option>
                     ))}
@@ -121,14 +139,21 @@ export function ContactPage() {
                 <label className="block sm:col-span-2">
                   <span className="text-xs font-semibold uppercase tracking-wide text-slate-600">Your Message</span>
                   <textarea
+                    name="message"
                     rows={4}
                     placeholder="Tell us what you would like to know about the course, fees or batch timings"
                     className="mt-1.5 w-full border border-slate-300 px-4 py-2.5 text-sm focus:border-primary focus:outline-none"
                   />
                 </label>
 
-                <button type="submit" className="btn-accent sm:col-span-2">
-                  <Send size={16} /> Send Enquiry
+                {error && (
+                  <p className="border-l-4 border-l-red-600 bg-red-50 px-3 py-2 text-sm text-red-700 sm:col-span-2">
+                    {error}
+                  </p>
+                )}
+                <button type="submit" disabled={busy} className="btn-accent sm:col-span-2 disabled:opacity-60">
+                  {busy ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+                  {busy ? 'Sending…' : 'Send Enquiry'}
                 </button>
               </form>
             )}
@@ -138,12 +163,21 @@ export function ContactPage() {
             <SectionHeading title="Find Us" align="left" />
             <div className="mt-6 h-[300px] bg-white shadow-sm sm:h-[380px]">
               <iframe
-                title="Institute location map - Keonjhar, Odisha"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=85.55%2C21.60%2C85.62%2C21.66&layer=mapnik&marker=21.6288%2C85.5817"
+                title="Vidya Educational Society (NEURON) location - Keonjhar, Odisha"
+                src="https://www.google.com/maps?q=Vidya+Educational+Society+(NEURON),+Keonjhar,+Odisha+758001&output=embed"
                 className="h-full w-full border-0"
                 loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
+            <a
+              href="https://maps.app.goo.gl/3ZzKuFtvMMuqx9QKA"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary mt-4 w-full text-xs"
+            >
+              <MapPin size={15} /> Get Directions on Google Maps
+            </a>
             <div className="mt-6 bg-primary p-6 text-white">
               <h3 className="font-heading text-base font-bold">Visit Our Head Office</h3>
               <p className="mt-2 text-sm text-slate-200">{siteInfo.contact.address}</p>

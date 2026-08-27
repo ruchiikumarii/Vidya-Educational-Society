@@ -10,6 +10,7 @@ import { Timetable } from './features/Timetable';
 import { GalleryManager } from './features/GalleryManager';
 import { FeesManager } from './features/FeesManager';
 import { SuccessStoriesManager } from './features/SuccessStoriesManager';
+import { EnquiriesManager } from './features/EnquiriesManager';
 
 function UsersManager() {
   const { profile: me } = useAuth();
@@ -294,16 +295,17 @@ function UsersManager() {
 }
 
 export function AdminDashboard() {
-  const [tab, setTab] = useState('Users');
+  const [tab, setTab] = useState('Enquiries');
 
   return (
     <div>
       <PortalTabs
-        tabs={['Users', 'Fees', 'Notes', 'Assignments', 'Announcements', 'Timetable', 'Gallery', 'Success Stories']}
+        tabs={['Enquiries', 'Users', 'Fees', 'Notes', 'Assignments', 'Announcements', 'Timetable', 'Gallery', 'Success Stories']}
         active={tab}
         onChange={setTab}
       />
 
+      {tab === 'Enquiries' && <EnquiriesManager />}
       {tab === 'Users' && <UsersManager />}
       {tab === 'Fees' && <FeesManager />}
       {tab === 'Notes' && <NotesManager />}

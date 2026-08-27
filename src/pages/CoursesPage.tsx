@@ -52,7 +52,7 @@ export function CoursesPage() {
             {active !== 'All' && ` in ${active}`}
           </p>
 
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {visible.map((course) => (
               <CourseCard key={course.id} course={course} />
             ))}

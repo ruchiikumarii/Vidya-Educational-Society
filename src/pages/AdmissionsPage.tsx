@@ -8,9 +8,11 @@ import {
   Send,
   CircleDot
 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { SectionHeading } from '../components/SectionHeading';
 import { CtaStrip } from '../components/CtaStrip';
+import { sendEnquiry } from '../lib/utils';
 import { siteInfo, courses } from '../data';
 
 const processSteps = [
@@ -67,6 +69,8 @@ const prospectusLinks = [
 
 export function AdmissionsPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
 
   return (
     <>
@@ -143,9 +147,20 @@ export function AdmissionsPage() {
             ) : (
               <form
                 className="mt-6 grid gap-5 bg-white p-6 shadow-sm sm:grid-cols-2 sm:p-8"
-                onSubmit={(event) => {
+                onSubmit={async (event) => {
                   event.preventDefault();
-                  setSubmitted(true);
+                  const data = new FormData(event.currentTarget);
+                  setError('');
+                  setBusy(true);
+                  const ok = await sendEnquiry('Admission Enquiry - Website', {
+                    Name: String(data.get('name') || ''),
+                    Mobile: String(data.get('mobile') || ''),
+                    Course: String(data.get('course') || 'Not specified'),
+                    Message: String(data.get('message') || '')
+                  });
+                  setBusy(false);
+                  if (ok) setSubmitted(true);
+                  else setError('Could not send right now. Please call or WhatsApp us instead.');
                 }}
               >
                 <label className="block">
@@ -154,6 +169,7 @@ export function AdmissionsPage() {
                   </span>
                   <input
                     type="text"
+                    name="name"
                     required
                     placeholder="Your name"
                     className="mt-1.5 w-full border border-slate-300 px-4 py-2.5 text-sm focus:border-primary focus:outline-none"
@@ -165,6 +181,7 @@ export function AdmissionsPage() {
                   </span>
                   <input
                     type="tel"
+                    name="mobile"
                     required
                     placeholder="+91 00000 00000"
                     className="mt-1.5 w-full border border-slate-300 px-4 py-2.5 text-sm focus:border-primary focus:outline-none"
@@ -173,12 +190,13 @@ export function AdmissionsPage() {
                 <label className="block sm:col-span-2">
                   <span className="text-xs font-semibold uppercase tracking-wide text-slate-600">Course of Interest</span>
                   <select
+                    name="course"
                     defaultValue=""
                     className="mt-1.5 w-full border border-slate-300 bg-white px-4 py-2.5 text-sm focus:border-primary focus:outline-none"
                   >
                     <option value="">Select a course</option>
                     {courses.map((course) => (
-                      <option key={course.id} value={course.slug}>
+                      <option key={course.id} value={course.shortTitle}>
                         {course.shortTitle}
                       </option>
                     ))}
@@ -187,13 +205,20 @@ export function AdmissionsPage() {
                 <label className="block sm:col-span-2">
                   <span className="text-xs font-semibold uppercase tracking-wide text-slate-600">Message</span>
                   <textarea
+                    name="message"
                     rows={3}
                     placeholder="Any question about eligibility, fees or batch timing"
                     className="mt-1.5 w-full border border-slate-300 px-4 py-2.5 text-sm focus:border-primary focus:outline-none"
                   />
                 </label>
-                <button type="submit" className="btn-accent sm:col-span-2">
-                  <Send size={16} /> Submit Admission Enquiry
+                {error && (
+                  <p className="border-l-4 border-l-red-600 bg-red-50 px-3 py-2 text-sm text-red-700 sm:col-span-2">
+                    {error}
+                  </p>
+                )}
+                <button type="submit" disabled={busy} className="btn-accent sm:col-span-2 disabled:opacity-60">
+                  {busy ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+                  {busy ? 'Sending…' : 'Submit Admission Enquiry'}
                 </button>
               </form>
             )}

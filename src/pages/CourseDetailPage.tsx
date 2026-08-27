@@ -152,7 +152,7 @@ export function CourseDetailPage() {
         <section className="bg-bg-alt py-14">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <SectionHeading title="Related Courses" />
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {related.map((item) => (
                 <CourseCard key={item.id} course={item} />
               ))}

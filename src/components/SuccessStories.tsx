@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Quote } from 'lucide-react';
 import { SectionHeading } from './SectionHeading';
 import { supabase, type SuccessStory } from '../lib/supabase';
 
@@ -58,8 +57,10 @@ export function SuccessStories() {
                 <p className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-accent">{s.course}</p>
               )}
 
-              <Quote size={26} className="mt-4 text-accent/25" />
-              <p className="mt-2 line-clamp-6 text-justify text-sm leading-relaxed text-slate-600">{s.story}</p>
+              <span className="mx-auto mt-3 h-0.5 w-10 bg-accent/40" />
+              <p className="mt-4 line-clamp-6 text-justify text-sm italic leading-relaxed text-slate-600">
+                “{s.story}”
+              </p>
             </article>
           ))}
         </div>

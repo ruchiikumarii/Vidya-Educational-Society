@@ -99,3 +99,13 @@ export interface SuccessStory {
   image_url: string | null;
   created_at: string;
 }
+
+export interface Enquiry {
+  id: string;
+  name: string;
+  mobile: string | null;
+  email: string | null;
+  course: string | null;
+  message: string | null;
+  created_at: string;
+}

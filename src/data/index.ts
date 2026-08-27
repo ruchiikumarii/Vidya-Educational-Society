@@ -16,7 +16,7 @@ export const siteInfo = {
     altPhone: "+91 96689 92909",
     thirdPhone: "+91 73270 36242",
     whatsapp: "+91 94371 93547",
-    email: "bidy.chou@gmail.com",
+    email: "support@vidyaeducationalsociety.com",
     admissionEmail: "bidy.chou@gmail.com",
     hours: "Everyday 7:00 AM – 1:00 PM & 3:00 PM – 7:30 PM (Sunday Closed)"
   },

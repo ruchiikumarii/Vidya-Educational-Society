@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BadgeCheck, ArrowRight, ShieldCheck, ExternalLink, ZoomIn, X } from 'lucide-react';
+import { BadgeCheck, ArrowRight, ShieldCheck, ExternalLink } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { SectionHeading } from '../components/SectionHeading';
 import { CtaStrip } from '../components/CtaStrip';
+import { Certificates } from '../components/Certificates';
 import { courses, siteInfo } from '../data';
 
 interface AffiliationBody {
@@ -61,8 +61,6 @@ const bodies: AffiliationBody[] = [
 ];
 
 export function AffiliationsPage() {
-  const [lightbox, setLightbox] = useState<string | null>(null);
-
   return (
     <>
       <PageHeader
@@ -126,32 +124,7 @@ export function AffiliationsPage() {
                     </>
                   )}
 
-                  {/* Certificate image */}
-                  {body.certificate && (
-                    <div className="mt-6">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                        {body.certificate.label}
-                      </p>
-                      <button
-                        onClick={() => setLightbox(body.certificate!.image)}
-                        className="group relative mt-2 block w-full max-w-[380px] overflow-hidden border border-slate-200 bg-white"
-                      >
-                        <img
-                          src={body.certificate.image}
-                          alt={body.certificate.label}
-                          loading="lazy"
-                          className="w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
-                        />
-                        <span className="absolute inset-0 flex items-center justify-center bg-primary/0 transition-colors group-hover:bg-primary/25">
-                          <span className="flex items-center gap-1.5 bg-white/90 px-3 py-1.5 text-xs font-semibold text-primary opacity-0 transition-opacity group-hover:opacity-100">
-                            <ZoomIn size={14} /> Click to view
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                  )}
-
-                  <div className="mt-5">
+                  <div className="mt-6">
                     <a
                       href={body.website}
                       target="_blank"
@@ -168,6 +141,9 @@ export function AffiliationsPage() {
         </div>
       </section>
 
+      {/* Certificates & registrations (auto-scroll) */}
+      <Certificates />
+
       {/* Note */}
       <section className="bg-white py-14">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
@@ -182,22 +158,6 @@ export function AffiliationsPage() {
           </Link>
         </div>
       </section>
-
-      {/* Lightbox */}
-      {lightbox && (
-        <div
-          className="fixed inset-0 z-100 flex items-center justify-center bg-black/90 p-4"
-          onClick={() => setLightbox(null)}
-        >
-          <button
-            aria-label="Close"
-            className="absolute top-5 right-5 flex h-10 w-10 items-center justify-center bg-white/15 text-white hover:bg-accent"
-          >
-            <X size={22} />
-          </button>
-          <img src={lightbox} alt="Certificate" className="max-h-[88vh] max-w-full object-contain shadow-2xl" />
-        </div>
-      )}
 
       <CtaStrip />
     </>

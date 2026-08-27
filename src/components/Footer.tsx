@@ -57,7 +57,7 @@ export function Footer() {
               Vidya Educational Society (NEURON)
             </span>
           </div>
-          <p className="mt-4 text-sm leading-relaxed">{siteInfo.description}</p>
+          <p className="mt-4 text-justify text-sm leading-relaxed">{siteInfo.description}</p>
           <ul className="mt-4 space-y-1.5">
             {siteInfo.registrations.map((item) => (
               <li key={item} className="flex items-start gap-2 text-xs text-slate-400">
@@ -141,13 +141,20 @@ export function Footer() {
             </li>
             <li className="flex gap-3">
               <Mail size={17} className="mt-0.5 shrink-0 text-accent" />
-              <span className="flex flex-col break-all">
-                <a href={`mailto:${siteInfo.contact.email}`} className="hover:text-accent">
-                  {siteInfo.contact.email}
-                </a>
-                <a href={`mailto:${siteInfo.contact.admissionEmail}`} className="hover:text-accent">
-                  {siteInfo.contact.admissionEmail}
-                </a>
+              <span className="flex min-w-0 flex-col">
+                {[siteInfo.contact.email, siteInfo.contact.admissionEmail].map((mail) => {
+                  const [local, domain] = mail.split('@');
+                  return (
+                    <a
+                      key={mail}
+                      href={`mailto:${mail}`}
+                      className="[overflow-wrap:break-word] hover:text-accent"
+                    >
+                      {local}@<wbr />
+                      {domain}
+                    </a>
+                  );
+                })}
               </span>
             </li>
             <li className="flex gap-3">
@@ -159,7 +166,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10 bg-black/25">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 text-xs text-slate-400 sm:px-6 lg:flex-row lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 pb-24 text-xs text-slate-400 sm:px-6 lg:flex-row lg:px-8 lg:pb-4 lg:pl-64">
           <p>
             © {new Date().getFullYear()} {siteInfo.name}. All Rights Reserved.
           </p>

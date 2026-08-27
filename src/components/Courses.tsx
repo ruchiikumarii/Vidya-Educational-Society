@@ -13,7 +13,7 @@ export function Courses() {
           subtitle="Diploma, certificate and vocational programmes designed for employment - every course is taught with a minimum of 60% practical lab time."
         />
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {courses.slice(0, 8).map((course) => (
             <CourseCard key={course.id} course={course} />
           ))}

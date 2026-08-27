@@ -6,6 +6,7 @@ import { Courses } from '../components/Courses';
 import { WhyChooseUs } from '../components/WhyChooseUs';
 import { Faculty } from '../components/Faculty';
 import { SuccessStories } from '../components/SuccessStories';
+import { Certificates } from '../components/Certificates';
 import { CtaStrip } from '../components/CtaStrip';
 
 export function Home() {
@@ -14,6 +15,7 @@ export function Home() {
       <Hero />
       <AboutIntro />
       <Stats />
+      <Certificates />
       <DirectorMessage />
       <Courses />
       <WhyChooseUs />
