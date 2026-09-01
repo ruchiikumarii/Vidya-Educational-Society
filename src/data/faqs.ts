@@ -53,7 +53,7 @@ export const faqs: FAQ[] = [
     category: "Certificate",
     question: "Who issues the certificate for each course?",
     answer:
-      "NIOS courses (CDEO, CIC) are certified by NIOS. OKCL courses (OC-CIP, OCOC) are certified by Odisha State Open University (OSOU). PGDCA and DCA are issued under ITCT. Short courses like Tally and DTP get a certificate of completion from our institute."
+      "NIOS courses (CDEO, CIC) are certified by NIOS. OKCL courses (OS-CIT, OCOC) are certified by Odisha State Open University (OSOU). PGDCA and DCA are issued under ITCT. Short courses like Tally and DTP get a certificate of completion from our institute."
   },
   {
     id: "faq8",
@@ -72,16 +72,16 @@ export const faqs: FAQ[] = [
   {
     id: "faq10",
     category: "Courses",
-    question: "What is the difference between OC-CIP, OC-CIP (A) and OCOC?",
+    question: "What is the difference between OS-CIT, OS-CIT (A) and OCOC?",
     answer:
-      "OC-CIP is the foundation OKCL course. OC-CIP (A) is the advanced module where you specialise in one skill course. OCOC lets you take a single skill course out of the 37 available. OKCL courses can be done in online or offline mode."
+      "OS-CIT is the foundation OKCL course. OS-CIT (A) is the advanced module where you specialise in one skill course. OCOC lets you take a single skill course out of the 37 available. OKCL courses can be done in online or offline mode."
   },
   {
     id: "faq11",
     category: "Courses",
     question: "Are the courses available online?",
     answer:
-      "Our OKCL courses (OC-CIP and OCOC) are available in both online and offline mode. NIOS, ITCT and our short courses like Tally and DTP are conducted offline at the centre."
+      "Our OKCL courses (OS-CIT and OCOC) are available in both online and offline mode. NIOS, ITCT and our short courses like Tally and DTP are conducted offline at the centre."
   },
   {
     id: "faq12",

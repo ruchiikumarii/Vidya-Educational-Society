@@ -24,7 +24,7 @@ export const heroSlides = [
     badge: "NIOS Authorized Study Centre",
     title: "Govt. Recognised Computer Certificates",
     subtitle:
-      "CDEO, CIC, OC-CIP, OCOC, PGDCA, DCA, Tally Prime with GST and Programming & DTP courses under one roof.",
+      "CDEO, CIC, OS-CIT, OCOC, PGDCA, DCA, Tally Prime with GST and Programming & DTP courses under one roof.",
     primaryCta: { label: "Explore Courses", to: "/courses" },
     secondaryCta: { label: "Talk to Us", to: "/contact" }
   },
@@ -34,7 +34,7 @@ export const heroSlides = [
     badge: "OKCL · Govt. of Odisha",
     title: "Skill Courses in Online & Offline Mode",
     subtitle:
-      "OKCL's OC-CIP and OCOC skill programmes - choose from 37 job-oriented skill courses including Tally, Python and Web Designing.",
+      "OKCL's OS-CIT and OCOC skill programmes - choose from 37 job-oriented skill courses including Tally, Python and Web Designing.",
     primaryCta: { label: "Skill Courses", to: "/courses?category=Skill+Development" },
     secondaryCta: { label: "Our Affiliations", to: "/affiliations" }
   },
@@ -96,7 +96,7 @@ export const whyUsPoints = [
 ];
 
 export const directorMessage = {
-  name: "Bidhyadhar Chaudhury",
+  name: "Bidyadhar Chaudhury",
   designation: "Director & Sr. Faculty, Vidya Educational Society (NEURON)",
   image: "/images/director.jpg",
   greeting: "Dear Students, Parents, and Well-Wishers,",

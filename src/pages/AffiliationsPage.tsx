@@ -34,7 +34,7 @@ const bodies: AffiliationBody[] = [
     role: 'Authorized Learning Centre',
     match: 'OKCL',
     description:
-      'Odisha Knowledge Corporation Limited (OKCL) operates under the Department of Electronics & Information Technology, Government of Odisha. Our OKCL courses (OC-CIP, OCOC) are certified by Odisha State Open University (OSOU), Sambalpur, and run in both online and offline mode. OKCL’s OS-CIT is recognised by the Government of Odisha for recruitment eligibility, as per the Odisha Gazette notification.',
+      'Odisha Knowledge Corporation Limited (OKCL) operates under the Department of Electronics & Information Technology, Government of Odisha. Our OKCL courses (OS-CIT, OCOC) are certified by Odisha State Open University (OSOU), Sambalpur, and run in both online and offline mode. OKCL’s OS-CIT is recognised by the Government of Odisha for recruitment eligibility, as per the Odisha Gazette notification.',
     logo: 'https://placehold.co/240x100/0d3b7a/ffffff?text=OKCL+%2F+OSOU',
     website: 'https://okcl.org/',
     certificate: {

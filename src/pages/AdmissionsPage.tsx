@@ -56,7 +56,7 @@ const prospectusLinks = [
   {
     id: 'okcl',
     name: 'OKCL',
-    body: 'OC-CIP, OC-CIP (A), OCOC',
+    body: 'OS-CIT, OS-CIT (A), OS-CIT (A+), OCOC',
     url: 'https://okcl.org/'
   },
   {

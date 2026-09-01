@@ -41,7 +41,7 @@ const facultyList: FacultyMember[] = [
   },
   {
     id: "f2",
-    name: "Bidhyadhar Chaudhury",
+    name: "Bidyadhar Chaudhury",
     role: "Director & Sr. Faculty",
     qualification: "M.Sc., PGDCA",
     experience: "20 years of teaching experience to PGDCA, DCA & OS-CIT students.",
