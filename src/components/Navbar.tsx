@@ -26,6 +26,7 @@ const navLinks: NavLink[] = [
       { name: 'Programming & DTP', path: '/courses?category=Programming+%26+DTP' }
     ]
   },
+  { name: 'Notices', path: '/announcements' },
   { name: 'Affiliations', path: '/affiliations' },
   { name: 'Faculty', path: '/faculty' },
   { name: 'Admissions', path: '/admissions' },

@@ -50,6 +50,18 @@ export interface Announcement {
   audience: 'all' | 'students' | 'teachers';
   title: string;
   body: string | null;
+  /** When true the notice is also shown on the public website. Admin only. */
+  is_public: boolean;
+  /** Pinned notices sort above the rest. */
+  pinned: boolean;
+  /** Optional attachment (image / PDF / any file) in the public `gallery` bucket. */
+  file_url: string | null;
+  file_name: string | null;
+  file_type: 'image' | 'file' | null;
+  /** Optional external link shown as a button on the notice. */
+  link_url: string | null;
+  /** Notice disappears from the website after this date. */
+  expires_at: string | null;
   created_at: string;
 }
 

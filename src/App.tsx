@@ -15,6 +15,7 @@ import { FacultyPage } from './pages/FacultyPage';
 import { AffiliationsPage } from './pages/AffiliationsPage';
 import { AdmissionsPage } from './pages/AdmissionsPage';
 import { GalleryPage } from './pages/GalleryPage';
+import { AnnouncementsPage } from './pages/AnnouncementsPage';
 import { ContactPage } from './pages/ContactPage';
 import { LoginPage } from './pages/portal/LoginPage';
 import { DashboardPage } from './pages/portal/DashboardPage';
@@ -50,6 +51,7 @@ export default function App() {
             <Route path="affiliations" element={<AffiliationsPage />} />
             <Route path="admissions" element={<AdmissionsPage />} />
             <Route path="gallery" element={<GalleryPage />} />
+            <Route path="announcements" element={<AnnouncementsPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="dashboard" element={<DashboardPage />} />
