@@ -85,7 +85,7 @@ const facultyList: FacultyMember[] = [
   },
   {
     id: "f5",
-    name: "Sanchita Mahata",
+    name: "Sanchita Mahanta",
     role: "Jr. Lab Faculty",
     qualification: "B.A., CDEO",
     experience: "1 year of lab experience, demonstrating students in the computer lab.",
@@ -96,7 +96,7 @@ const facultyList: FacultyMember[] = [
     id: "f6",
     name: "Ramesh Ch. Naik",
     role: "Office Assistant",
-    qualification: "B.A., OS-CIP",
+    qualification: "B.A., OS-CIT",
     experience: "10 years of experience in office administration at the institute.",
     image: "/images/faculty/ramesh-naik.jpg",
     subjects: ["Office Administration"]
