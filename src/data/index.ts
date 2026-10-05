@@ -3,6 +3,14 @@ export * from './faculty';
 export * from './faqs';
 export * from './misc';
 
+/** Institute's SBI UPI collection account - used by the student fee payment screen. */
+export const paymentInfo = {
+  upiId: "SBIBHIMINSTANT26852660004146079@sbipay",
+  merchantName: "VIDYA EDUCATIONAL SOCIETY",
+  merchantId: "SB952271",
+  qrImage: "/images/payment/upi-qr.png"
+};
+
 export const siteInfo = {
   name: "Vidya Educational Society",
   shortName: "NEURON",

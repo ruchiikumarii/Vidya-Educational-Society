@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   Clock,
@@ -16,10 +17,17 @@ import { CourseCard } from '../components/CourseCard';
 import { SectionHeading } from '../components/SectionHeading';
 import { CtaStrip } from '../components/CtaStrip';
 import { courses, siteInfo } from '../data';
+import { Stars, RatingLine } from '../components/StarRating';
+import { useRating, reviewDate, initials } from '../lib/reviews';
+import type { Review } from '../lib/supabase';
+import { ReviewForm } from '../components/ReviewForm';
+import { PenLine } from 'lucide-react';
 
 export function CourseDetailPage() {
   const { slug } = useParams();
   const course = courses.find((item) => item.slug === slug);
+  const { summary, reviews } = useRating(slug);
+  const [writing, setWriting] = useState(false);
 
   if (!course) {
     return (
@@ -48,6 +56,8 @@ export function CourseDetailPage() {
           {/* Main content */}
           <div>
             <img src={course.image} alt={course.shortTitle} className="h-64 w-full object-cover shadow-sm sm:h-80" />
+
+            <RatingLine average={summary.average} count={summary.count} size={18} className="mt-5" />
 
             <h2 className="mt-8 font-heading text-xl font-bold text-primary sm:text-2xl">Course Overview</h2>
             <div className="mt-2 h-1 w-20 bg-accent" />
@@ -147,6 +157,81 @@ export function CourseDetailPage() {
           </aside>
         </div>
       </section>
+
+      <section className="bg-white pb-14">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h2 className="font-heading text-xl font-bold text-primary sm:text-2xl">
+                Ratings for {course.shortTitle}
+              </h2>
+              <div className="mt-2 h-1 w-20 bg-accent" />
+            </div>
+            <button onClick={() => setWriting(true)} className="btn-accent px-5 py-2.5 text-xs">
+              <PenLine size={15} /> Write a Review
+            </button>
+          </div>
+
+          {summary.count === 0 ? (
+            <p className="mt-6 border border-dashed border-slate-300 bg-bg-alt p-6 text-center text-sm text-slate-500">
+              This course has not been rated yet. If you have studied it, your review will help
+              other students choose.
+            </p>
+          ) : (
+            <div className="mt-6 grid gap-8 lg:grid-cols-[260px_1fr]">
+              <div className="border-t-4 border-t-accent bg-bg-alt p-6 text-center shadow-sm">
+                <p className="number-font font-heading text-5xl leading-none font-extrabold text-primary">
+                  {summary.average.toFixed(1)}
+                </p>
+                <span className="mt-3 flex justify-center">
+                  <Stars value={summary.average} size={20} />
+                </span>
+                <p className="mt-2 text-sm text-slate-600">
+                  {summary.count} student{summary.count === 1 ? ' rating' : ' ratings'}
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                {reviews.filter((r) => r.review).length === 0 ? (
+                  <p className="border border-slate-200 bg-bg-alt p-6 text-sm text-slate-500">
+                    Students have rated this course, but have not written a review yet.
+                  </p>
+                ) : (
+                  reviews
+                    .filter((r) => r.review)
+                    .map((r: Review) => (
+                      <article key={r.id} className="card-institutional p-5">
+                        <div className="flex flex-wrap items-center gap-3">
+                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-heading text-xs font-bold text-white">
+                            {initials(r.student_name)}
+                          </span>
+                          <div className="min-w-0">
+                            <p className="flex items-center gap-1.5 font-heading text-sm font-bold text-primary">
+                              {r.student_name}
+                              {r.student_id && (
+                                <BadgeCheck size={14} className="shrink-0 text-green-600" />
+                              )}
+                            </p>
+                            <p className="text-xs text-slate-400">
+                              {r.student_id ? 'Verified student' : 'Website visitor'} ·{' '}
+                              {reviewDate(r.created_at)}
+                            </p>
+                          </div>
+                          <span className="ml-auto shrink-0">
+                            <Stars value={r.rating} size={14} />
+                          </span>
+                        </div>
+                        <p className="mt-3 text-sm leading-relaxed text-slate-600">{r.review}</p>
+                      </article>
+                    ))
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {writing && <ReviewForm initialSlug={course.slug} onClose={() => setWriting(false)} />}
 
       {related.length > 0 && (
         <section className="bg-bg-alt py-14">

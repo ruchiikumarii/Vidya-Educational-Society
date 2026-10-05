@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Clock, GraduationCap, ArrowRight } from 'lucide-react';
 import type { Course } from '../data';
+import { RatingLine } from './StarRating';
+import { useRating } from '../lib/reviews';
 
 export function CourseCard({ course }: { course: Course }) {
+  const { summary } = useRating(course.slug);
+
   return (
     <article className="card-institutional group flex flex-col overflow-hidden">
       <div className="relative h-44 overflow-hidden">
@@ -18,6 +22,7 @@ export function CourseCard({ course }: { course: Course }) {
 
       <div className="flex flex-1 flex-col p-5">
         <h3 className="font-heading text-base leading-snug font-bold text-primary">{course.shortTitle}</h3>
+        <RatingLine average={summary.average} count={summary.count} className="mt-1.5" />
         <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">
           {course.summary.length > 130 ? `${course.summary.slice(0, 130)}…` : course.summary}
         </p>

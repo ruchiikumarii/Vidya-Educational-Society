@@ -9,8 +9,10 @@ import { Announcements } from './features/Announcements';
 import { Timetable } from './features/Timetable';
 import { GalleryManager } from './features/GalleryManager';
 import { FeesManager } from './features/FeesManager';
+import { FeePayments } from './features/FeePayments';
 import { SuccessStoriesManager } from './features/SuccessStoriesManager';
 import { EnquiriesManager } from './features/EnquiriesManager';
+import { ReviewsManager } from './features/ReviewsManager';
 
 function UsersManager() {
   const { profile: me } = useAuth();
@@ -300,12 +302,13 @@ export function AdminDashboard() {
   return (
     <div>
       <PortalTabs
-        tabs={['Enquiries', 'Users', 'Fees', 'Notes', 'Assignments', 'Announcements', 'Timetable', 'Gallery', 'Success Stories']}
+        tabs={['Enquiries', 'Payments', 'Users', 'Fees', 'Notes', 'Assignments', 'Announcements', 'Timetable', 'Gallery', 'Success Stories', 'Reviews']}
         active={tab}
         onChange={setTab}
       />
 
       {tab === 'Enquiries' && <EnquiriesManager />}
+      {tab === 'Payments' && <FeePayments />}
       {tab === 'Users' && <UsersManager />}
       {tab === 'Fees' && <FeesManager />}
       {tab === 'Notes' && <NotesManager />}
@@ -314,6 +317,7 @@ export function AdminDashboard() {
       {tab === 'Timetable' && <Timetable role="admin" />}
       {tab === 'Gallery' && <GalleryManager />}
       {tab === 'Success Stories' && <SuccessStoriesManager />}
+      {tab === 'Reviews' && <ReviewsManager />}
     </div>
   );
 }
