@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { supabase, isSupabaseConfigured, loginIdToEmail, type Profile } from './supabase';
 
 interface AuthState {
@@ -21,35 +21,62 @@ function isExpired(profile: Profile) {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
+  /** User id whose profile is already loaded - stops repeat fetches on token refresh. */
+  const loadedUserId = useRef<string | null>(null);
 
-  async function loadProfile() {
+  useEffect(() => {
     if (!supabase) {
       setLoading(false);
       return;
     }
-    const { data: sessionData } = await supabase.auth.getSession();
-    const userId = sessionData.session?.user.id;
-    if (!userId) {
-      setProfile(null);
-      setLoading(false);
-      return;
-    }
-    const { data } = await supabase.from('profiles').select('*').eq('id', userId).single();
-    if (data && isExpired(data as Profile)) {
-      await supabase.auth.signOut();
-      setProfile(null);
-    } else {
-      setProfile((data as Profile) ?? null);
-    }
-    setLoading(false);
-  }
+    let active = true;
 
-  useEffect(() => {
-    loadProfile();
-    if (!supabase) return;
-    const { data: sub } = supabase.auth.onAuthStateChange(() => loadProfile());
-    return () => sub.subscription.unsubscribe();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const applyUser = async (userId: string | null) => {
+      if (!supabase || !active) return;
+
+      if (!userId) {
+        loadedUserId.current = null;
+        setProfile(null);
+        setLoading(false);
+        return;
+      }
+      // Token refreshes and tab re-focus fire again for the same user - nothing to redo.
+      if (loadedUserId.current === userId) {
+        setLoading(false);
+        return;
+      }
+
+      const { data } = await supabase.from('profiles').select('*').eq('id', userId).maybeSingle();
+      if (!active) return;
+
+      const prof = (data as Profile) ?? null;
+      if (prof && isExpired(prof)) {
+        loadedUserId.current = null;
+        setProfile(null);
+        await supabase.auth.signOut();
+      } else {
+        loadedUserId.current = prof ? userId : null;
+        setProfile(prof);
+      }
+      setLoading(false);
+    };
+
+    supabase.auth.getSession().then(({ data }) => applyUser(data.session?.user.id ?? null));
+
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      // IMPORTANT: supabase-js holds an internal lock while this callback runs, so
+      // awaiting another Supabase call here can dead-lock the client - which showed up
+      // as a login that hung until the page was refreshed. Defer the work instead.
+      const userId = event === 'SIGNED_OUT' ? null : (session?.user.id ?? null);
+      setTimeout(() => {
+        applyUser(userId);
+      }, 0);
+    });
+
+    return () => {
+      active = false;
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   const signIn: AuthState['signIn'] = async (loginId, password) => {
@@ -64,23 +91,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .from('profiles')
       .select('*')
       .eq('id', data.user.id)
-      .single();
+      .maybeSingle();
 
     if (!prof) {
+      loadedUserId.current = null;
       await supabase.auth.signOut();
       return { error: 'No profile found for this account.' };
     }
     if (isExpired(prof as Profile)) {
+      loadedUserId.current = null;
       await supabase.auth.signOut();
       return { error: 'Your access has expired. Please contact the office.' };
     }
+
+    // Mark it loaded before the SIGNED_IN event lands, so it does not fetch again.
+    loadedUserId.current = data.user.id;
     setProfile(prof as Profile);
+    setLoading(false);
     return {};
   };
 
   const signOut = async () => {
-    if (supabase) await supabase.auth.signOut();
+    loadedUserId.current = null;
     setProfile(null);
+    if (supabase) await supabase.auth.signOut();
   };
 
   return (
